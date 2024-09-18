@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacked!</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #message {
+            font-size: 3em;
+            margin-top: 20%;
+        }
+        .cmd-window {
+            border: 2px solid lightgray;
+            padding: 10px;
+            background-color: black;
+            color: lightgray;
+            font-family: 'Courier New', Courier, monospace;
+            width: 600px;
+            height: 400px;
+            overflow: auto;
+        }
+        .cmd-line {
+            margin: 0;
+        }
+        .error-window {
+            border: 3px solid red;
+            background-color: black;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            width: 400px;
+            height: 250px;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
+        }
+        .error-header {
+            background-color: #0094FF; /* Blue top bar */
+            color: white;
+            padding: 10px;
+            border-bottom: 2px solid darkblue;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        .error-content {
+            padding: 20px;
+            text-align: center;
+        }
+        .error-content p {
+            margin: 10px 0;
+        }
+        .error-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .cmd-output {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div id="message">YOU JUST GOT HACKED!</div>
+
+    <script>
+        function createFakeCMDWindow(newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>Command Prompt</title>
+                    <style>
+                        body {
+                            background-color: black;
+                            color: lightgray;
+                            font-family: 'Courier New', Courier, monospace;
+                            margin: 0;
+                            padding: 10px;
+                        }
+                        .cmd-window {
+                            border: 2px solid lightgray;
+                            background-color: black;
+                            color: lightgray;
+                            width: 100%;
+                            height: 100%;
+                            overflow: auto;
+                        }
+                        .cmd-line {
+                            margin: 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="cmd-window">
+                        <p class="cmd-line">C:\\Users\\User&gt; <span id="cmdOutput" class="cmd-output"></span></p>
+                    </div>
+                    <script>
+                        function getRandomCommand() {
+                            const commands = [
+                                'dir',
+                                'ping google.com',
+                                'ipconfig',
+                                'netstat -a',
+                                'tasklist',
+                                'systeminfo',
+                                'chkdsk /f',
+                                'sfc /scannow',
+                                'diskpart',
+                                'shutdown /r /t 10'
+                            ];
+                            return commands[Math.floor(Math.random() * commands.length)];
+                        }
+
+                        function updateCommandOutput() {
+                            const outputElement = document.getElementById('cmdOutput');
+                            const command = getRandomCommand();
+                            outputElement.innerText += command + ' ...\n' + 'Command executed successfully\n';
+                            outputElement.scrollTop = outputElement.scrollHeight;
+                        }
+
+                        setInterval(updateCommandOutput, 2000);
+                        updateCommandOutput(); // Initial update
+                    <\/script>
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
+        }
+
+        function createFakeErrorWindow(newWindow) {
+            newWindow.document.open();
+            newWindow.document.write(`
+                <html>
+                <head>
+                    <title>System Error</title>
+                    <style>
+                        body {
+                            background-color: black;
+                            color: white;
+                            font-family: 'Arial', sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        .error-window {
+                            border: 3px solid red;
+                            background-color: black;
+                            color: white;
+                            width: 400px;
+                            height: 250px;
+                            position: absolute;
+                            top: 20%;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+                            border-radius: 10px;
+                        }
+                        .error-header {
+                            background-color: #0094FF; /* Blue top bar */
+                            color: white;
+                            padding: 10px;
+                            border-bottom: 2px solid darkblue;
+                            font-size: 1.5em;
+                            font-weight: bold;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            border-top-left-radius: 10px;
+                            border-top-right-radius: 10px;
+                        }
+                        .error-content {
+                            padding: 20px;
+                        }
+                        .error-content p {
+                            margin: 10px 0;
+                        }
+                        .error-button {
+                            background-color: red;
+                            color: white;
+                            border: none;
+                            padding: 10px;
+                            cursor: pointer;
+                            font-size: 1em;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="error-window">
+                        <div class="error-header">Uh Oh! 😖</div>
+                        <div class="error-content">
+                            <p>You've encountered a serious problem.</p>
+                            <p><strong>ERROR 0x00000000</strong></p>
+                            <p>Contact your system administrator.</p>
+                            <button class="error-button" onclick="handleDamnButtonClick()">DAMN</button>
+                        </div>
+                    </div>
+                    <script>
+                        function handleDamnButtonClick() {
+                            window.close();
+                            setTimeout(function() {
+                                for (let i = 0; i < 2; i++) {
+                                    const newWindow = window.open('about:blank', '_blank', 'width=400,height=250');
+                                    if (newWindow) {
+                                        createFakeErrorWindow(newWindow);
+                                    }
+                                }
+                            }, 100);
+                        }
+                    <\/script>
+                </body>
+                </html>
+            `);
+            newWindow.document.close();
+        }
+
+        function createBSOD() {
+            const bsodWindow = window.open('https://fakebsod.com/generic/', '_blank', `fullscreen=yes`);
+            
+            // Automatically trigger fullscreen
+            bsodWindow.document.documentElement.requestFullscreen();
+        }
+
+        function getRandomPosition(width, height) {
+            const maxX = window.screen.availWidth - width;
+            const maxY = window.screen.availHeight - height;
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
+            return { x, y };
+        }
+
+        function openMultipleFakeWindows() {
+            const numCMDWindows = 3; // Number of CMD windows
+            const numErrorWindows = 3; // Number of error windows
+            const cmdWidth = 600;
+            const cmdHeight = 400;
+
+            for (let i = 0; i < numCMDWindows; i++) {
+                const { x, y } = getRandomPosition(cmdWidth, cmdHeight);
+                const newWindow = window.open('about:blank', '_blank', `width=${cmdWidth},height=${cmdHeight},top=${y},left=${x}`);
+                if (newWindow) {
+                    createFakeCMDWindow(newWindow);
+                }
+            }
+
+            for (let i = 0; i < numErrorWindows; i++) {
+                const { x, y } = getRandomPosition(400, 250);
+                const newWindow = window.open('about:blank', '_blank', `width=400,height=250,top=${y},left=${x}`);
+                if (newWindow) {
+                    createFakeErrorWindow(newWindow);
+                }
+            }
+
+            setTimeout(createBSOD, 10000); // Show BSOD after 10 seconds
+        }
+
+        openMultipleFakeWindows();
+    </script>
+</body>
+</html>
