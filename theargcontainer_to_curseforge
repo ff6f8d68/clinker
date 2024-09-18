@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cross linker secured link</title>
+    <script>
+        function redirectBasedOnProbability() {
+            var randomNum = Math.random(); // Generate a random number between 0 and 1
+            if (randomNum < 0.7) {
+                // Redirect to the first URL 70% of the time
+                window.location.href = 'https://www.curseforge.com/minecraft/mc-mods/the-arg-container';
+            } else {
+                // Redirect to the second URL 30% of the time
+                window.location.href = '';
+            }
+        }
+    </script>
+</head>
+<body onload="redirectBasedOnProbability()">
+    <p>Redirecting you...</p>
+</body>
+</html>
